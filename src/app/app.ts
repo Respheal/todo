@@ -16,10 +16,9 @@ export class AppComponent {
   filter: 'all' | 'active' | 'done' = 'all';
 
   allItems = [
-    { description: 'eat', done: true },
-    { description: 'sleep', done: false },
-    { description: 'play', done: false },
+    { description: 'live', done: true },
     { description: 'laugh', done: false },
+    { description: 'love', done: false },
   ];
 
   get items() {

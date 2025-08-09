@@ -1,29 +1,33 @@
-<h1>{{ componentTitle }} - Test</h1>
-<label for="addItemInput">What would you like to do today?</label>
+<div class="main">
+  <div>
+    <mat-form-field class="full-width">
+      <mat-label for="addItemInput">What would you like to do today?</mat-label>
+      <input
+        matInput
+        #newItem
+        placeholder="Do something"
+        (keyup.enter)="addItem(newItem.value); newItem.value = ''"
+        id="addItemInput"
+      />
+    </mat-form-field>
+  </div>
 
-<input
-  #newItem
-  placeholder="add an item"
-  (keyup.enter)="addItem(newItem.value); newItem.value = ''"
-  id="addItemInput"
-/>
+  <!-- Buttons that show all, still to do, or done items on click -->
+  <div>
+    <mat-button-toggle-group name="taskFilter" aria-label="Task Filter">
+      <mat-button-toggle (click)="filter = 'all'">All</mat-button-toggle>
+      <mat-button-toggle (click)="filter = 'active'">Active</mat-button-toggle>
+      <mat-button-toggle (click)="filter = 'done'">Done</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
 
-<button (click)="addItem(newItem.value); newItem.value = ''">Add</button>
-
-<!-- Buttons that show all, still to do, or done items on click -->
-<button [class.active]="filter === 'all'" (click)="filter = 'all'">All</button>
-
-<button [class.active]="filter === 'active'" (click)="filter = 'active'">
-  To Do
-</button>
-
-<button [class.active]="filter === 'done'" (click)="filter = 'done'">
-  Done
-</button>
-
-<!-- catches the remove event bubbling up from the child and uses it to trigger this component's remove function -->
-<h2>{{ items.length }} @if (items.length === 1) { item } @else { items }</h2>
-
-@for (item of items; track item.description) {
-<app-item (remove)="remove(item)" [item]="item"></app-item>
-}
+  <!-- catches the remove event bubbling up from the child and uses it to trigger this component's remove function -->
+  <h2>{{ items.length }} @if (items.length === 1) { item } @else { items }</h2>
+  <mat-list>
+    @for (item of items; track item.description) {
+    <mat-list-item>
+      <app-item (remove)="remove(item)" [item]="item"></app-item>
+    </mat-list-item>
+    @if (!$last) {<mat-divider></mat-divider>} }
+  </mat-list>
+</div>

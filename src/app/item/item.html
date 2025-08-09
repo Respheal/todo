@@ -1,25 +1,39 @@
-<input
-  [id]="item.description"
-  type="checkbox"
-  (change)="item.done = !item.done"
-  [checked]="item.done"
-/>
-<label [for]="item.description">{{ item.description }}</label>
-
-@if (!editable) {
-<button (click)="editable = !editable">Edit</button>
-<button (click)="remove.emit()">Delete</button>
-}
-
-<!-- This section shows only if user clicks Edit button -->
-@if (editable) {
-<input
-  #editedItem
-  placeholder="edit item"
-  [value]="item.description"
-  (keyup.enter)="saveItem(editedItem.value)"
-/>
-
-<button (click)="editable = !editable">Cancel</button>
-<button (click)="saveItem(editedItem.value)">Save</button>
-}
+<div class="item">
+  <mat-checkbox
+    [id]="item.description"
+    (change)="item.done = !item.done"
+    [checked]="item.done"
+  ></mat-checkbox>
+  @if (!editable) {
+  <label [for]="item.description" class="description">
+    {{ item.description }}
+  </label>
+  <div class="control-buttons">
+    <div class="flex-container">
+      <button matIconButton (click)="editable = true">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button matIconButton (click)="remove.emit()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+  } @else {
+  <mat-form-field class="description" appearance="outline">
+    <input
+      matInput
+      #editedItem
+      type="text"
+      [(ngModel)]="item.description"
+      (keyup.enter)="saveItem(editedItem.value)"
+    />
+  </mat-form-field>
+  <div class="control-buttons">
+    <div class="flex-container">
+      <button matIconButton (click)="editable = false">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </div>
+  </div>
+  }
+</div>

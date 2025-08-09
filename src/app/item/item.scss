@@ -1,0 +1,45 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .flex-container {
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .control-buttons {
+    max-width: 100%;
+  }
+}
+
+.description {
+  margin: 0 16px 0 8px;
+  min-width: 120px;
+}
+
+// Make the edit input form field smaller
+::ng-deep .description.mat-mdc-form-field {
+  .mat-mdc-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  .mat-mdc-form-field-flex {
+    min-height: 35px !important;
+    height: 35px !important;
+  }
+
+  .mat-mdc-form-field-infix {
+    min-height: 20px !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+  }
+
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none; // Hide the subscript area to save space
+  }
+}
+
+.control-buttons .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}

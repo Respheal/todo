@@ -1,5 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 export interface Item {
   description: string;
@@ -9,9 +15,17 @@ export interface Item {
 @Component({
   selector: 'app-item',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatInputModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatCheckboxModule,
+  ],
   templateUrl: './item.html',
-  styleUrl: './item.css',
+  styleUrl: './item.scss',
 })
 export class ItemComponent {
   @Input() item!: Item;

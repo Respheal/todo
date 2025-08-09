@@ -1,13 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Item, ItemComponent } from './item/item';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @Component({
   standalone: true,
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
-  imports: [CommonModule, ItemComponent],
+  imports: [
+    CommonModule,
+    ItemComponent,
+    MatListModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatButtonToggleModule,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   componentTitle = 'My To Do List';

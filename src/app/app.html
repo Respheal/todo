@@ -15,19 +15,36 @@
   <!-- Buttons that show all, still to do, or done items on click -->
   <div>
     <mat-button-toggle-group name="taskFilter" aria-label="Task Filter">
-      <mat-button-toggle (click)="filter = 'all'">All</mat-button-toggle>
-      <mat-button-toggle (click)="filter = 'active'">Active</mat-button-toggle>
-      <mat-button-toggle (click)="filter = 'done'">Done</mat-button-toggle>
+      <mat-button-toggle
+        [checked]="filter == 'all'"
+        (click)="filter = 'all'; pageIndex = 0"
+      >
+        All
+      </mat-button-toggle>
+      <mat-button-toggle (click)="filter = 'active'; pageIndex = 0"
+        >Active</mat-button-toggle
+      >
+      <mat-button-toggle (click)="filter = 'done'; pageIndex = 0"
+        >Done</mat-button-toggle
+      >
     </mat-button-toggle-group>
   </div>
 
   <!-- catches the remove event bubbling up from the child and uses it to trigger this component's remove function -->
-  <h2>{{ items.length }} @if (items.length === 1) { item } @else { items }</h2>
   <mat-list>
-    @for (item of items; track item.description) {
+    @for (item of paginatedItems; track item.description) {
     <mat-list-item>
       <app-item (remove)="remove(item)" [item]="item"></app-item>
     </mat-list-item>
     @if (!$last) {<mat-divider></mat-divider>} }
   </mat-list>
+  <mat-paginator
+    [length]="items.length"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="pageIndex = $event.pageIndex; pageSize = $event.pageSize"
+    aria-label="Select page"
+  >
+  </mat-paginator>
 </div>

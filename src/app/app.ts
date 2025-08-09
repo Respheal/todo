@@ -7,6 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   standalone: true,
@@ -23,6 +24,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatSelectModule,
     MatFormFieldModule,
     MatButtonToggleModule,
+    MatPaginatorModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -37,6 +39,9 @@ export class AppComponent {
     { description: 'love', done: false },
   ];
 
+  pageIndex = 0;
+  pageSize = 10;
+
   get items() {
     if (this.filter === 'all') {
       return this.allItems;
@@ -44,6 +49,12 @@ export class AppComponent {
     return this.allItems.filter((item) =>
       this.filter === 'done' ? item.done : !item.done
     );
+  }
+
+  get paginatedItems() {
+    const start = this.pageIndex * this.pageSize;
+    const end = start + this.pageSize;
+    return this.items.slice(start, end);
   }
 
   addItem(description: string) {

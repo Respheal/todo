@@ -1,6 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Item } from '../item';
+
+export interface Item {
+  description: string;
+  done: boolean;
+}
 
 @Component({
   selector: 'app-item',

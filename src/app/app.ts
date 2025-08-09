@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Item } from './item';
-import { ItemComponent } from './item/item';
+import { Item, ItemComponent } from './item/item';
 
 @Component({
   standalone: true,

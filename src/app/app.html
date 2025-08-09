@@ -1,57 +1,29 @@
-<div class="main">
-  <h1>{{ componentTitle }} - Test</h1>
-  <label for="addItemInput">What would you like to do today?</label>
+<h1>{{ componentTitle }} - Test</h1>
+<label for="addItemInput">What would you like to do today?</label>
 
-  <input
-    #newItem
-    placeholder="add an item"
-    (keyup.enter)="addItem(newItem.value); newItem.value = ''"
-    class="lg-text-input"
-    id="addItemInput"
-  />
+<input
+  #newItem
+  placeholder="add an item"
+  (keyup.enter)="addItem(newItem.value); newItem.value = ''"
+  id="addItemInput"
+/>
 
-  <button
-    class="btn-primary"
-    (click)="addItem(newItem.value); newItem.value = ''"
-  >
-    Add
-  </button>
+<button (click)="addItem(newItem.value); newItem.value = ''">Add</button>
 
-  <!-- Buttons that show all, still to do, or done items on click -->
-  <div class="btn-wrapper">
-    <button
-      class="btn btn-menu"
-      [class.active]="filter === 'all'"
-      (click)="filter = 'all'"
-    >
-      All
-    </button>
+<!-- Buttons that show all, still to do, or done items on click -->
+<button [class.active]="filter === 'all'" (click)="filter = 'all'">All</button>
 
-    <button
-      class="btn btn-menu"
-      [class.active]="filter === 'active'"
-      (click)="filter = 'active'"
-    >
-      To Do
-    </button>
+<button [class.active]="filter === 'active'" (click)="filter = 'active'">
+  To Do
+</button>
 
-    <button
-      class="btn btn-menu"
-      [class.active]="filter === 'done'"
-      (click)="filter = 'done'"
-    >
-      Done
-    </button>
-  </div>
+<button [class.active]="filter === 'done'" (click)="filter = 'done'">
+  Done
+</button>
 
-  <!-- catches the remove event bubbling up from the child and uses it to trigger this component's remove function -->
-  <h2>{{ items.length }} @if (items.length === 1) { item } @else { items }</h2>
+<!-- catches the remove event bubbling up from the child and uses it to trigger this component's remove function -->
+<h2>{{ items.length }} @if (items.length === 1) { item } @else { items }</h2>
 
-  <ul>
-    @for (item of items; track item.description) {
-    <li>
-      <app-item (remove)="remove(item)" [item]="item"></app-item>
-    </li>
-    }
-  </ul>
-</div>
+@for (item of items; track item.description) {
+<app-item (remove)="remove(item)" [item]="item"></app-item>
+}

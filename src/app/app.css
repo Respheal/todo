@@ -1,5 +1,4 @@
 .main {
-  max-width: 500px;
   width: 85%;
   margin: 2rem auto;
   padding: 1rem;
@@ -15,6 +14,20 @@
   }
 }
 
-.full-width {
-  width: 85%;
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }

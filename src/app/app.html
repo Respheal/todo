@@ -1,50 +1,34 @@
-<div class="main">
-  <div>
-    <mat-form-field class="full-width">
-      <mat-label for="addItemInput">What would you like to do today?</mat-label>
-      <input
-        matInput
-        #newItem
-        placeholder="Do something"
-        (keyup.enter)="addItem(newItem.value); newItem.value = ''"
-        id="addItemInput"
-      />
-    </mat-form-field>
-  </div>
-
-  <!-- Buttons that show all, still to do, or done items on click -->
-  <div>
-    <mat-button-toggle-group name="taskFilter" aria-label="Task Filter">
-      <mat-button-toggle
-        [checked]="filter == 'all'"
-        (click)="filter = 'all'; pageIndex = 0"
-      >
-        All
-      </mat-button-toggle>
-      <mat-button-toggle (click)="filter = 'active'; pageIndex = 0"
-        >Active</mat-button-toggle
-      >
-      <mat-button-toggle (click)="filter = 'done'; pageIndex = 0"
-        >Done</mat-button-toggle
-      >
-    </mat-button-toggle-group>
-  </div>
-
-  <!-- catches the remove event bubbling up from the child and uses it to trigger this component's remove function -->
-  <mat-list>
-    @for (item of paginatedItems; track item.description) {
-    <mat-list-item>
-      <app-item (remove)="remove(item)" [item]="item"></app-item>
-    </mat-list-item>
-    @if (!$last) {<mat-divider></mat-divider>} }
-  </mat-list>
-  <mat-paginator
-    [length]="items.length"
-    [pageSize]="pageSize"
-    [pageIndex]="pageIndex"
-    [pageSizeOptions]="[5, 10, 25, 100]"
-    (page)="pageIndex = $event.pageIndex; pageSize = $event.pageSize"
-    aria-label="Select page"
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
   >
-  </mat-paginator>
-</div>
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="todo">To Do</a>
+      <a mat-list-item routerLink="table">Table</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      @if (isHandset$ | async) {
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        matIconButton
+        (click)="drawer.toggle()"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      }
+      <span>An Extremely Minimal Website</span>
+    </mat-toolbar>
+    <div class="main">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
